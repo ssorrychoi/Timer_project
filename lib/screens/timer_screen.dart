@@ -140,7 +140,8 @@ class _TimerScreenState extends State<TimerScreen> {
             height: 30,
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RaisedButton(
                 onPressed: () {
@@ -160,15 +161,13 @@ class _TimerScreenState extends State<TimerScreen> {
                 },
                 child: Text('Reset'),
               ),
-              RaisedButton(
-                onPressed: () {
-                  _stopWatchTimer.onExecute.add(StopWatchExecute.lap);
-                },
-                child: Text('Lap Time'),
-              )
             ],
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.label_important),
+        onPressed: () => _stopWatchTimer.onExecute.add(StopWatchExecute.lap),
       ),
     );
   }
