@@ -1,6 +1,6 @@
 # project_timer
 
-Timer Project (2020.08.09~ ing~)
+Timer Project (2020.08.09~ ing)
 
 ## Getting Started
 
