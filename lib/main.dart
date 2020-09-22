@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_timer/screens/add_timer.dart';
 import 'package:project_timer/screens/home_screen.dart';
 import 'package:project_timer/screens/setting_screen.dart';
 import 'package:project_timer/screens/timer_screen.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     HomeScreen(),
     TimerScreen(),
     SettingScreen(),
+    AddTimer(),
   ];
 
   int _currentScreen = 1;
@@ -40,6 +42,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: _screens[_currentScreen],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.blue,
+        selectedItemColor: Colors.white,
+        unselectedFontSize: 10.0,
         currentIndex: _currentScreen,
         onTap: changeScreen,
         items: <BottomNavigationBarItem>[
@@ -48,6 +54,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.timer), title: Text('Stop Watch')),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), title: Text('Setting')),
+          BottomNavigationBarItem(icon: Icon(Icons.done), title: Text('Timer'))
         ],
       ),
     );
