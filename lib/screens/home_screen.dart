@@ -30,87 +30,138 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('내 타이머'),
         backgroundColor: Colors.black,
       ),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.yellow,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              '최근활동',
-              style: TextStyle(color: Colors.black),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              color: Colors.yellow,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '최근활동',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
-          ),
-          Row(
-            children: [
-              Card(
-                child: Column(
-                  children: [
-                    Icon(Icons.create),
-                    Text('러닝 20분'),
-                    Text('타이머 00:20:00')
-                  ],
-                ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child:
+                  // Container(
+                  //   height: 100,
+                  //   child: ListView.separated(
+                  //       itemBuilder: (context, index) => Card(
+                  //             child: Column(
+                  //               children: [
+                  //                 Icon(Icons.create),
+                  //                 Text('러닝 ${index}분'),
+                  //                 Text('타이머 00:20:00')
+                  //               ],
+                  //             ),
+                  //           ),
+                  //       separatorBuilder: (context, index) => Divider(
+                  //             color: Colors.black12,
+                  //           ),
+                  //       itemCount: 5),
+                  // )
+
+                  Row(
+                children: [
+                  Card(
+                    child: Column(
+                      children: [
+                        Icon(Icons.create),
+                        Text('러닝 20분'),
+                        Text('타이머 00:20:00')
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: Column(
+                      children: [
+                        Icon(Icons.create),
+                        Text('러닝 20분'),
+                        Text('타이머 00:20:00')
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: Column(
+                      children: [
+                        Icon(Icons.create),
+                        Text('러닝 20분'),
+                        Text('타이머 00:20:00')
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: Column(
+                      children: [
+                        Icon(Icons.create),
+                        Text('러닝 20분'),
+                        Text('타이머 00:20:00')
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: Column(
+                      children: [
+                        Icon(Icons.create),
+                        Text('러닝 20분'),
+                        Text('타이머 00:20:00')
+                      ],
+                    ),
+                  ),
+                  Card(
+                    child: Column(
+                      children: [
+                        Icon(Icons.create),
+                        Text('러닝 20분'),
+                        Text('타이머 00:20:00')
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Card(
-                child: Column(
-                  children: [
-                    Icon(Icons.create),
-                    Text('러닝 20분'),
-                    Text('타이머 00:20:00')
-                  ],
-                ),
-              ),
-              Card(
-                child: Column(
-                  children: [
-                    Icon(Icons.create),
-                    Text('러닝 20분'),
-                    Text('타이머 00:20:00')
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Container(
-            color: Colors.yellow,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              '최근활동',
-              style: TextStyle(color: Colors.black),
             ),
-          ),
-          Row(
-            children: [
-              Card(
-                child: Column(
-                  children: [
-                    Icon(Icons.create),
-                    Text('러닝 20분'),
-                    Text('타이머 00:20:00')
-                  ],
-                ),
+            Container(
+              color: Colors.yellow,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '최근활동',
+                style: TextStyle(color: Colors.black),
               ),
-              Card(
-                child: Column(
-                  children: [
-                    Icon(Icons.create),
-                    Text('러닝 20분'),
-                    Text('타이머 00:20:00')
-                  ],
+            ),
+            Row(
+              children: [
+                Card(
+                  child: Column(
+                    children: [
+                      Icon(Icons.create),
+                      Text('러닝 20분'),
+                      Text('타이머 00:20:00')
+                    ],
+                  ),
                 ),
-              ),
-              Card(
-                child: Column(
-                  children: [
-                    Icon(Icons.create),
-                    Text('러닝 20분'),
-                    Text('타이머 00:20:00')
-                  ],
+                Card(
+                  child: Column(
+                    children: [
+                      Icon(Icons.create),
+                      Text('러닝 20분'),
+                      Text('타이머 00:20:00')
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )
-        ],
+                Card(
+                  child: Column(
+                    children: [
+                      Icon(Icons.create),
+                      Text('러닝 20분'),
+                      Text('타이머 00:20:00')
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
 
 //      floatingActionButton: FloatingActionButton(

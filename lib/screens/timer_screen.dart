@@ -8,6 +8,7 @@ class TimerScreen extends StatefulWidget {
 
 class _TimerScreenState extends State<TimerScreen> {
   final StopWatchTimer _stopWatchTimer = StopWatchTimer();
+  bool isStart = false;
 
   @override
   void initState() {
@@ -27,148 +28,148 @@ class _TimerScreenState extends State<TimerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '스톱 워치',
+          style: TextStyle(color: Colors.blue, fontSize: 16),
+        ),
+        brightness: Brightness.light,
+        backgroundColor: Colors.white,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          StreamBuilder<int>(
-            stream: _stopWatchTimer.rawTime,
-            initialData: _stopWatchTimer.rawTime.value,
-            builder: (context, snap) {
-              final value = snap.data;
-              final displayTime = StopWatchTimer.getDisplayTime(value);
-              return Column(
-                children: [
-                  Text(displayTime),
-                  Divider(),
-                  Text(value.toString()),
-                ],
-              );
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: StreamBuilder<int>(
-              stream: _stopWatchTimer.minuteTime,
-              initialData: _stopWatchTimer.minuteTime.value,
-              builder: (context, snap) {
-                final value = snap.data;
-                print('Listen every minute. $value');
-                return Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('minute'),
-                        Text(value.toString()),
-                      ],
-                    )
-                  ],
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: StreamBuilder<int>(
-              stream: _stopWatchTimer.secondTime,
-              initialData: _stopWatchTimer.secondTime.value,
-              builder: (context, snap) {
-                final value = snap.data;
-                return Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Second'),
-                        Text(value.toString()),
-                      ],
-                    )
-                  ],
-                );
-              },
-            ),
-          ),
           Container(
-            height: 120,
-            margin: EdgeInsets.all(8),
-            child: StreamBuilder<List<StopWatchRecord>>(
-              stream: _stopWatchTimer.records,
-              initialData: _stopWatchTimer.records.value,
+            // margin: const EdgeInsets.only(top: 18),
+            // color: Colors.red,
+            child: StreamBuilder<int>(
+              stream: _stopWatchTimer.rawTime,
+              initialData: _stopWatchTimer.rawTime.value,
               builder: (context, snap) {
                 final value = snap.data;
-                if (value.isEmpty) {
-                  return Container();
-                }
-                Future.delayed(const Duration(milliseconds: 100), () {
-                  _scrollController.animateTo(
-                      _scrollController.position.maxScrollExtent,
-                      duration: const Duration(milliseconds: 200),
-                      curve: Curves.easeOut);
-                });
-                print('Listen records. $value');
-                return ListView.builder(
-                  controller: _scrollController,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    final data = value[index];
-                    return Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            '${index + 1} ${data.displayTime}',
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontFamily: 'Helvetica',
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        const Divider(
-                          height: 1,
-                        )
-                      ],
-                    );
-                  },
-                  itemCount: value.length,
+                final displayTime = StopWatchTimer.getDisplayTime(value);
+                return Text(
+                  displayTime,
+                  style: TextStyle(fontSize: 75),
                 );
               },
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              RaisedButton(
-                onPressed: () {
-                  _stopWatchTimer.onExecute.add(StopWatchExecute.start);
-                },
-                child: Text('Start'),
+              Container(
+                width: 100,
+                height: 100,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.replay,
+                    size: 60,
+                  ),
+                  onPressed: () =>
+                      _stopWatchTimer.onExecute.add(StopWatchExecute.reset),
+                ),
               ),
-              RaisedButton(
-                onPressed: () {
-                  _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
-                },
-                child: Text('Stop'),
+              Container(
+                width: 100,
+                height: 100,
+                child: IconButton(
+                  icon: !isStart
+                      ? Icon(
+                          Icons.play_arrow,
+                          size: 60,
+                        )
+                      : Icon(
+                          Icons.pause,
+                          size: 60,
+                        ),
+                  onPressed: () {
+                    if (isStart) {
+                      _stopWatchTimer.onExecute.add(StopWatchExecute.stop);
+                      setState(() {
+                        isStart = false;
+                      });
+                    } else {
+                      _stopWatchTimer.onExecute.add(StopWatchExecute.start);
+                      setState(() {
+                        isStart = true;
+                      });
+                    }
+                  },
+                ),
               ),
-              RaisedButton(
-                onPressed: () {
-                  _stopWatchTimer.onExecute.add(StopWatchExecute.reset);
-                },
-                child: Text('Reset'),
-              ),
+              FlatButton(
+                onPressed: () =>
+                    _stopWatchTimer.onExecute.add(StopWatchExecute.lap),
+                child: Text(
+                  'Lap',
+                  style: TextStyle(fontSize: 40),
+                ),
+              )
             ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          SingleChildScrollView(
+            child: Container(
+              height: 300,
+              margin: EdgeInsets.all(8),
+              child: StreamBuilder<List<StopWatchRecord>>(
+                stream: _stopWatchTimer.records,
+                initialData: _stopWatchTimer.records.value,
+                builder: (context, snap) {
+                  final value = snap.data;
+                  if (value.isEmpty) {
+                    return Container();
+                  }
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent,
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeOut);
+                  });
+                  print('Listen records. $value');
+                  return ListView.builder(
+                    controller: _scrollController,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (BuildContext context, int index) {
+                      final data = value[index];
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                            height: 50,
+                            color: Colors.lightBlueAccent,
+                            padding: const EdgeInsets.only(right: 20, left: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('${data.displayTime}'),
+                                Text('Lap ${index + 1}'),
+                              ],
+                            ),
+                          ),
+                          Divider()
+                        ],
+                      );
+                    },
+                    itemCount: value.length,
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.label_important),
-        onPressed: () => _stopWatchTimer.onExecute.add(StopWatchExecute.lap),
-      ),
+
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(Icons.label_important),
+      //   onPressed: () => _stopWatchTimer.onExecute.add(StopWatchExecute.lap),
+      // ),
     );
   }
 }
