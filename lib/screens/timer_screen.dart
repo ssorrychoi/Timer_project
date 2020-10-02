@@ -39,32 +39,28 @@ class _TimerScreenState extends State<TimerScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            // margin: const EdgeInsets.only(top: 18),
-            // color: Colors.red,
-            child: StreamBuilder<int>(
-              stream: _stopWatchTimer.rawTime,
-              initialData: _stopWatchTimer.rawTime.value,
-              builder: (context, snap) {
-                final value = snap.data;
-                final displayTime = StopWatchTimer.getDisplayTime(value);
-                return Text(
-                  displayTime,
-                  style: TextStyle(fontSize: 75),
-                );
-              },
-            ),
+          StreamBuilder<int>(
+            stream: _stopWatchTimer.rawTime,
+            initialData: _stopWatchTimer.rawTime.value,
+            builder: (context, snap) {
+              final value = snap.data;
+              final displayTime = StopWatchTimer.getDisplayTime(value);
+              return Text(
+                displayTime,
+                style: TextStyle(fontSize: 75),
+              );
+            },
           ),
-          SizedBox(
-            height: 50,
-          ),
+          // SizedBox(
+          //   height: 50,
+          // ),
           Row(
             // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
                 child: IconButton(
                   icon: Icon(
                     Icons.replay,
@@ -75,8 +71,8 @@ class _TimerScreenState extends State<TimerScreen> {
                 ),
               ),
               Container(
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
                 child: IconButton(
                   icon: !isStart
                       ? Icon(
@@ -112,12 +108,12 @@ class _TimerScreenState extends State<TimerScreen> {
               )
             ],
           ),
-          SizedBox(
-            height: 50,
-          ),
+          // SizedBox(
+          //   height: 30,
+          // ),
           SingleChildScrollView(
             child: Container(
-              height: 300,
+              height: MediaQuery.of(context).size.height / 2,
               margin: EdgeInsets.all(8),
               child: StreamBuilder<List<StopWatchRecord>>(
                 stream: _stopWatchTimer.records,
