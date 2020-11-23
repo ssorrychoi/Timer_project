@@ -2,6 +2,8 @@
 
 Timer Project (2020.08.09~ ing)
 
+- 2020.11.21 와이어프레임
+
 ## Getting Started
 
 XD주소 : https://xd.adobe.com/view/af60b287-dd25-494f-9b68-f13cfa317192-fa33/

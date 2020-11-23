@@ -1,4 +1,4 @@
-package com.ssorrychoi.project_timer
+package com.example.timer_pt
 
 import io.flutter.embedding.android.FlutterActivity
 
